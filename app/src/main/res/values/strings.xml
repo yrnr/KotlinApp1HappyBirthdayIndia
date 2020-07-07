@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Happy Birthday</string>
+    <string name="hello">Hello there!</string>
     <string name="days1">\"It\'s your birthday in</string>
     <string name="days2">\ days!\"</string>
     <string name="hbd_pic_desc">hbd_pic_desc</string>
+    <string name="bv_go">Go</string>
+    <string name="editTextHint">DateOfBirth:YYYY-MM-DD</string>
 </resources>
