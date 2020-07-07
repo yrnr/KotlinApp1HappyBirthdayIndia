@@ -3,6 +3,7 @@ package com.example.happybirthday
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -34,10 +35,28 @@ class MainActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.textView).text = days1 + " " + daysToBirthday + days2
         }
     }
+
     fun getDays(string: String): String {
-        val date1 = LocalDateTime.now()
-        val date2 = LocalDateTime.parse(string + "T00:00:00.0400")
-        val result = ChronoUnit.DAYS.between(date1, date2)
+        val today = LocalDateTime.now()
+        val birth = LocalDateTime.parse(string + "T00:00:00.0400")
+        var nextBirthdayYear = 0
+        var nextBirthday = today
+        if (
+            ((today.monthValue == birth.monthValue) && (today.dayOfMonth >= birth.dayOfMonth))
+            || (today.monthValue > birth.monthValue)) { nextBirthdayYear = today.year + 1 }
+        else { nextBirthdayYear = today.year }
+        var birthMonthStr = ""
+        var birthDayOfMonthStr = ""
+        if (birth.monthValue < 10) { birthMonthStr = "0"+birth.monthValue.toString()}
+        else {birthMonthStr = birth.monthValue.toString()}
+        if (birth.dayOfMonth < 10) { birthDayOfMonthStr = "0"+birth.dayOfMonth.toString()}
+        else {birthDayOfMonthStr = birth.dayOfMonth.toString()}
+
+        nextBirthday = LocalDateTime.parse(
+            nextBirthdayYear.toString() + "-"
+            + birthMonthStr + "-"
+            + birthDayOfMonthStr + "T00:00:00.0400")
+        val result = ChronoUnit.DAYS.between(today, nextBirthday)
         return result.toString()
     }
 }
